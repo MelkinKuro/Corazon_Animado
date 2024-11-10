@@ -11,8 +11,7 @@ plt.style.use('fast')
 def corazon_3d(x,y,z):
     return (x**2 + (9/4)*(y**2) + z**2 - 1)**3 - (x**2)*(z**3) - (9/80)*(y**2)*(z**3)
 
-# Crear figura con tamaño más grande
-fig = plt.figure(figsize=(16, 16))  # Aumentado de 12,12 a 16,16
+fig = plt.figure(figsize=(16, 16))
 ax = fig.add_subplot(111, projection='3d')
 fig.patch.set_facecolor('#F5A5C5')
 ax.set_facecolor('#F5A5C5')
@@ -26,8 +25,8 @@ ax.set_zlim3d(zmin, zmax)
 ax.set_axis_off()
 
 # Reducir la cantidad de líneas y ajustar su grosor
-M = np.linspace(xmin, xmax, 50)  # Reducido de 100 a 50
-N = np.linspace(xmin, xmax, 25)   # Reducido de 50 a 25
+M = np.linspace(xmin, xmax, 50)  
+N = np.linspace(xmin, xmax, 25)  
 M1, M2 = np.meshgrid(M, M)
 
 # Dibujar menos contornos con líneas más gruesas
@@ -46,20 +45,19 @@ for x in N[::2]:
     X = corazon_3d(x, Y, Z)
     ax.contour(X+x, Y, Z, [x], zdir='x', colors=('#ff0000'), linewidths=2.5)
 
-# Manejo de la imagen con más brillo
+# Manejo de la imagen 
 img = Image.open("./kiwi.jpg")
-img = img.resize((300, 300), Image.Resampling.LANCZOS)  # Aumentado a 300x300
+img = img.resize((300, 300), Image.Resampling.LANCZOS)  
 
-# Aumentar significativamente el brillo y contraste
+# Ajsutes de brillo y contraste
 enhancer = ImageEnhance.Brightness(img)
-img = enhancer.enhance(1.0)  # Aumentar brillo al doble
-
+img = enhancer.enhance(1.0) 
 enhancer = ImageEnhance.Contrast(img)
 img = enhancer.enhance(1.8)  # Aumentar contraste en 80%
 
-# Aumentar la saturación
+# Ajuste de la saturación
 enhancer = ImageEnhance.Color(img)
-img = enhancer.enhance(1.0)  # Aumentar saturación en 50%
+img = enhancer.enhance(1.0) 
 
 img = np.array(img.convert("RGBA"))
 
@@ -83,7 +81,7 @@ def animate(i):
     ax.view_init(elev=40, azim=i*4)  # Aumentado el ángulo de elevación
     return [ax]
 
-# Animación más suave
+
 anim = animation.FuncAnimation(fig,
                              animate,
                              frames=180,
